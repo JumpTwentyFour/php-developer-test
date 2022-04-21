@@ -11,8 +11,10 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $first_name
  * @property string $last_name
+ * @property string $password
  * @property string $email
  * @property string|null $avatar
+ * @property int|null $external_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
