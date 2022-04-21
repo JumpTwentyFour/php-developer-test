@@ -52,4 +52,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function generateNewPassword(): string
+    {
+        // TODO move this into a separate service
+        $password = bin2hex(random_bytes(32));
+        $this->password = $password;
+
+        return $password;
+    }
 }
