@@ -48,6 +48,7 @@ class ReqResApiTest extends TestCase
         $response = $service->getUsers();
 
         $body = $response->json();
+        $this->assertNotEmpty($body['data']);
         $user = $body['data'][0];
 
         $this->assertArrayHasKey('id', $user);
