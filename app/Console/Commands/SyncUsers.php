@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Exceptions\ReqResApiException;
 use App\Service\ReqRes\ReqResApiInterface;
 use App\Service\ReqRes\ReqResUserService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SyncUsers extends Command
 {
@@ -44,7 +46,14 @@ class SyncUsers extends Command
      */
     public function handle()
     {
-        $users = $this->apiService->getAllUsers();
+        try {
+            $users = $this->apiService->getAllUsers();
+        } catch (ReqResApiException $e) {
+            Log::error($e->getMessage());
+            $this->error("Request to ReqRes API failed, check logs and try again");
+
+            return self::FAILURE;
+        }
         $count = count($users);
         $bar = $this->output->createProgressBar($count);
         foreach ($users as $user) {
@@ -53,6 +62,6 @@ class SyncUsers extends Command
         }
         $bar->finish();
 
-        return 0;
+        return self::SUCCESS;
     }
 }

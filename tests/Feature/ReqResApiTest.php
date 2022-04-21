@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\ReqResApiException;
 use App\Service\ReqRes\ReqResApi;
 use App\Service\ReqRes\ReqResApiInterface;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 /**
@@ -115,6 +117,15 @@ class ReqResApiTest extends TestCase
             return $user['id'];
         }, $users));
         $this->assertCount($total, $uniqueIds);
+    }
+
+    public function test_server_error()
+    {
+        $service = $this->getApiService();
+        Http::fake([ReqResApi::API_URL.'/api/*' => Http::response('', 500)]);
+
+        $this->expectException(ReqResApiException::class);
+        $service->getUsers();
     }
 
     private function getApiService(): ReqResApiInterface

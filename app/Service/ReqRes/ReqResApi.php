@@ -2,18 +2,24 @@
 
 namespace App\Service\ReqRes;
 
+use App\Exceptions\ReqResApiException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class ReqResApi implements ReqResApiInterface
 {
-    private const API_URL = 'https://reqres.in';
+    public const API_URL = 'https://reqres.in';
 
     public function getUsers(int $page = 1): Response
     {
-        return Http::get(static::API_URL.'/api/users', [
+        $response = Http::get(static::API_URL.'/api/users', [
             'page' => $page,
         ]);
+        if ($response->successful()) {
+            return $response;
+        }
+
+        throw new ReqResApiException("ReqReq API request failed with status of {$response->status()}");
     }
 
     public function getAllUsers(): array
