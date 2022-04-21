@@ -4,12 +4,15 @@ namespace App\Providers;
 
 use App\Service\ReqRes\ReqResApi;
 use App\Service\ReqRes\ReqResApiInterface;
+use App\Service\ReqRes\ReqResUserService;
+use App\Service\ReqRes\ReqResUserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     public $singletons = [
         ReqResApiInterface::class => ReqResApi::class,
+        ReqResUserServiceInterface::class => ReqResUserService::class,
     ];
 
     /**
