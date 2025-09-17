@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  default:
+    name: internal_dev_network
+
+services:
+
+  php:
+    build:
+      context: ./.docker
+      dockerfile: dockerfile_php
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - ./:/var/www/html
+      - ~/.ssh:/root/.ssh
+    command: php-fpm

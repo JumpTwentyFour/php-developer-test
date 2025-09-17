@@ -1,0 +1,20 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - ./app
+
+    # The level 9 is the highest level
+    level: 4
+
+    excludePaths:
+        - ./*/*/FileToBeExcluded.php
+        - ./app/Exceptions
+        - ./app/Providers
+
+    bootstrapFiles:
+        - ./vendor/composer/autoload_classmap.php
+
+#    checkGenericClassInNonGenericObjectType: false

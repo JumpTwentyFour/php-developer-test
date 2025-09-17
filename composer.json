@@ -16,11 +16,16 @@
         "laravel/framework": "^8.40"
     },
     "require-dev": {
+        "brianium/paratest": "^6.11",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "larastan/larastan": "^1.0",
+        "laravel/pint": "^1.25",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "phpmd/phpmd": "^2.15",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^4.0"
     },
     "autoload": {
         "psr-4": {
